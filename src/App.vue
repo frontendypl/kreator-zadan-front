@@ -1,13 +1,17 @@
 <template>
-  <div id="app">
+  <div id="app" class="d-flex flex-column min-vh-100">
+
+    <AppHeader/>
+
     <router-view/>
+
   </div>
 </template>
 
 <style lang="scss">
 
-@import "@/assets/css/reset.css";
-@import "@/assets/css/bootstrap.css";
+@import "bootstrap/dist/css/bootstrap.min.css";
+@import "bootstrap-icons/font/bootstrap-icons.css";
 
 body{
   background-image: url("@/assets/images/background.jpg");
@@ -17,24 +21,10 @@ body{
   min-height: 100vh;
 }
 
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
-
-nav {
-  padding: 30px;
-
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-
-    &.router-link-exact-active {
-      color: #42b983;
-    }
-  }
-}
 </style>
+<script>
+import AppHeader from "@/components/AppHeader";
+export default {
+  components: {AppHeader}
+}
+</script>

@@ -5,6 +5,14 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
+    userName: '',
+    listId: '',
+    activeExercise: {
+      id: '',
+      img: '',
+      imgLink: '',
+      answers: ''
+    },
   },
   getters: {
   },

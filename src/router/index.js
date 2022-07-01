@@ -1,22 +1,22 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 
-import StartView from "@/views/StartView";
-import ExerciseView from "@/views/ExerciseView";
+import EnterView from "@/views/EnterView";
+import NameView from "@/views/NameView";
 
 Vue.use(VueRouter)
 
 const routes = [
   {
     path: '/',
-    name: 'home',
-    component: StartView,
+    name: 'StartCodeView',
+    component: EnterView,
   },
   {
-    name: 'ExerciseView',
     path: '/:listId',
-    component: ExerciseView
-  }
+    name: 'StartCodeView',
+    component: NameView,
+  },
   // {
   //   path: '/about',
   //   name: 'about',
