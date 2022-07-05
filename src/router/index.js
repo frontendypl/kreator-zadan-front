@@ -2,7 +2,8 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 
 import EnterView from "@/views/EnterView";
-import NameView from "@/views/NameView";
+import EnterNameView from "@/views/EnterNameView";
+import ExerciseView from "@/views/ExerciseView";
 
 Vue.use(VueRouter)
 
@@ -14,9 +15,14 @@ const routes = [
   },
   {
     path: '/:listId',
-    name: 'StartCodeView',
-    component: NameView,
+    name: 'EnterNameView',
+    component: EnterNameView,
   },
+  {
+    path: '/:listId/:playerName/exercise',
+    name: 'ExerciseView',
+    component: ExerciseView
+  }
   // {
   //   path: '/about',
   //   name: 'about',
@@ -30,5 +36,14 @@ const routes = [
 const router = new VueRouter({
   routes
 })
+
+router.beforeEach((to,from, next)=>{
+  /** next jest argumentem opcjonalnym, wystarczy użyć return https://router.vuejs.org/guide/advanced/navigation-guards.html#optional-third-argument-next */
+  next()
+})
+
+// router.afterEach((to,from, next)=>{
+//
+// })
 
 export default router

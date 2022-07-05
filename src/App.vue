@@ -8,6 +8,34 @@
   </div>
 </template>
 
+<script>
+import {mapState, mapGetters} from "vuex"
+import AppHeader from "@/components/AppHeader";
+export default {
+  components: {AppHeader},
+  computed: {
+    ...mapGetters(['listId']),
+  },
+  watch: {
+    // player: {
+    //   handler(newValue, oldValue) {
+    //     if (newValue !== '')
+    //       this.$router.push({name: 'EnterNameView', params: {listId: newValue}})
+    //   },
+    //   deep: true
+    // },
+    // userName(newValue, oldValue){
+    //   if(newValue !== '' && this.listId !== ''){
+    //     this.$router.push({name: 'ExerciseView', params: {userName: newValue}})
+    //   }
+    // }
+  },
+  mounted() {
+
+  }
+}
+</script>
+
 <style lang="scss">
 
 @import "bootstrap/dist/css/bootstrap.min.css";
@@ -21,10 +49,8 @@ body{
   min-height: 100vh;
 }
 
-</style>
-<script>
-import AppHeader from "@/components/AppHeader";
-export default {
-  components: {AppHeader}
+img{
+  max-width: 100%;
 }
-</script>
+
+</style>
