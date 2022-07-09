@@ -30,7 +30,7 @@ export default {
     async getListData(){
       this.shortCodeError = ''
       try {
-        const response = await axios.get(`${this.apiUrl}/lists/${this.shortCode}`)
+        const response = await axios.get(`${this.apiUrl}/lists/validation/${this.shortCode}`)
         await this.setList(response.data)
         await this.$router.push({name: 'EnterNameView', params: {shortCode: this.shortCode}})
       }catch (e) {
