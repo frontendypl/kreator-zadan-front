@@ -19,7 +19,7 @@ const routes = [
     component: EnterNameView,
   },
   {
-    path: '/:shortCode/:playerName/exercise',
+    path: '/:shortCode/zadania',
     name: 'ExerciseView',
     component: ExerciseView
   }

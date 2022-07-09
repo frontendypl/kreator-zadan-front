@@ -22,7 +22,7 @@ export default {
     }
   },
   computed: {
-    ...mapState(['list', 'shortCode']),
+    ...mapState(['list', 'shortCode', 'player']),
     ...mapGetters(['apiUrl']),
   },
   methods: {
@@ -46,6 +46,14 @@ export default {
       handler(newValue, oldValue){
         if(newValue){
           this.getListData()
+        }
+      },
+      deep: true
+    },
+    player: {
+      handler(newValue, oldValue){
+        if(newValue._id){
+          this.$router.push({name: 'ExerciseView', params: {shortCode: this.list.shortCode}})
         }
       },
       deep: true
