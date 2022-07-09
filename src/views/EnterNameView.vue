@@ -49,13 +49,13 @@ export default {
     ...mapActions(['setPlayer']),
     async handleForm() {
 
-      try{
-        const {data} = await axios.patch(`${this.apiUrl}/players/${this.player._id}`, {name: this.playerName})
-        this.setPlayer(data)
-        this.$router.push({name: 'ExerciseView', params: {listId: this.player.listId, playerName: this.player.name}})
-      }catch (e) {
-        this.error = e.response.data.errors.name.message
-      }
+      // try{
+      //   const {data} = await axios.patch(`${this.apiUrl}/players/${this.player._id}`, {name: this.playerName})
+      //   this.setPlayer(data)
+      //   this.$router.push({name: 'ExerciseView', params: {listId: this.player.listId, playerName: this.player.name}})
+      // }catch (e) {
+      //   this.error = e.response.data.errors.name.message
+      // }
 
 
     }

@@ -7,11 +7,17 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
+    shortCode: '',
+    list: {
+      _id: ''
+    },
     player: {
       _id: '',
       name: '',
       listId: ''
     },
+
+
     activeExercise: {
       id: 'sdv45345',
       img: '',
@@ -24,19 +30,28 @@ export default new Vuex.Store({
     // playerName(){
     //   return router.currentRoute.params.playerName || ''
     // },
-    // listId(){
-    //   return router.currentRoute.params.listId || ''
-    // },
     apiUrl(){
       return location.href.indexOf('localhost') === -1? 'https://api.kreator-zadan.pl' : 'http://localhost:2000'
     },
   },
   mutations: {
+    setShortCode(state, shortCode){
+      state.shortCode = shortCode
+    },
+    setList(state, list){
+      state.list = {...state.list, ...list}
+    },
     setPlayer(state, player){
       state.player = {...state.player, ...player}
     }
   },
   actions: {
+    setShortCode(context, shortCode){
+      context.commit('setShortCode', shortCode)
+    },
+    setList(context, list){
+      context.commit('setList', list)
+    },
     setPlayer(context, player){
       context.commit('setPlayer', player)
     }

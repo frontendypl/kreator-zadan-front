@@ -14,12 +14,12 @@ const routes = [
     component: EnterView,
   },
   {
-    path: '/:listId',
+    path: '/:shortCode',
     name: 'EnterNameView',
     component: EnterNameView,
   },
   {
-    path: '/:listId/:playerName/exercise',
+    path: '/:shortCode/:playerName/exercise',
     name: 'ExerciseView',
     component: ExerciseView
   }

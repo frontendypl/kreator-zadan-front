@@ -1,34 +1,58 @@
 <template>
   <div id="app" class="d-flex flex-column min-vh-100">
 
-    <AppHeader/>
+    <AppHeaderComponent :list="list" />
 
-    <router-view/>
+    <router-view :shortCodeError="shortCodeError"/>
 
   </div>
 </template>
 
 <script>
-import {mapState, mapGetters} from "vuex"
-import AppHeader from "@/components/AppHeader";
+import {mapState, mapGetters, mapActions} from "vuex"
+import AppHeaderComponent from "@/components/AppHeaderComponent";
+import axios from "axios";
+import router from "@/router";
+
 export default {
-  components: {AppHeader},
+  components: {AppHeaderComponent},
+  data(){
+    return {
+      shortCodeError: '',
+    }
+  },
   computed: {
-    ...mapGetters(['listId']),
+    ...mapState(['list', 'shortCode']),
+    ...mapGetters(['apiUrl']),
+  },
+  methods: {
+    ...mapActions(['setList','setShortCode']),
+    async getListData(){
+      this.shortCodeError = ''
+      try {
+        const response = await axios.get(`${this.apiUrl}/lists/${this.shortCode}`)
+        await this.setList(response.data)
+        await this.$router.push({name: 'EnterNameView', params: {shortCode: this.shortCode}})
+      }catch (e) {
+        this.shortCodeError = e.response.data.error
+        if(this.$route.path !== '/'){
+          await this.$router.push({path: '/'})
+        }
+      }
+    }
   },
   watch: {
-    // player: {
-    //   handler(newValue, oldValue) {
-    //     if (newValue !== '')
-    //       this.$router.push({name: 'EnterNameView', params: {listId: newValue}})
-    //   },
-    //   deep: true
-    // },
-    // userName(newValue, oldValue){
-    //   if(newValue !== '' && this.listId !== ''){
-    //     this.$router.push({name: 'ExerciseView', params: {userName: newValue}})
-    //   }
-    // }
+    shortCode: {
+      handler(newValue, oldValue){
+        if(newValue){
+          this.getListData()
+        }
+      },
+      deep: true
+    }
+  },
+  created(){
+    this.setShortCode(this.$router.currentRoute.params.shortCode || '')
   },
   mounted() {
 

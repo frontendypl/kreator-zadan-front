@@ -11,7 +11,7 @@
         <div class="row gx-2 justify-content-center">
           <div class="col col-xl-5">
             <input type="text" id="name-input" class="form-control form-control-lg w-100 fs-1 mb-2 text-center"
-                   v-model="listId"
+                   v-model="shortCode"
             >
           </div>
           <div class="col col-auto">
@@ -22,7 +22,7 @@
         </div>
         <div class="row">
           <div class="col">
-            <h4 class="text-danger">{{error}}</h4>
+            <h4 class="text-danger">{{shortCodeError}}</h4>
             <label for="name-input">Podaj kod który otrzymałeś od nauczyciela</label>
           </div>
         </div>
@@ -37,32 +37,24 @@ import axios from 'axios';
 import {mapActions, mapGetters} from 'vuex'
 export default {
   name: 'EnterView',
+  props: {
+    shortCodeError: {
+      type: String
+    }
+  },
   data(){
     return {
-      listId: '',
-      error: ''
+      shortCode: '',
     }
   },
   computed: {
-    ...mapGetters(['apiUrl'])
   },
   methods: {
-    ...mapActions(['setPlayer']),
+    ...mapActions(['setShortCode']),
 
-    async handleForm(){
-      // this.setListId(this.listId)
-
-      try{
-        // this.$router.push({name: 'EnterNameView', params: {listId: this.listId}})
-        const {data} = await axios.post(`${this.apiUrl}/players`, {listId: this.listId})
-        this.setPlayer(data)
-        console.log(this.listId)
-        await this.$router.push({name: 'EnterNameView', params: {listId: this.listId}})
-      }catch (e) {
-        this.error = e.response.data.error
-      }
-
-      // this.$router.push({name: 'EnterNameView', params: {listId: this.listId}}) //TODO
+    handleForm(){
+      this.setShortCode(this.shortCode)
+      // this.$router.push({name: 'EnterNameView', params: {shortCode: this.shortCode}})
     }
   },
   mounted(){
