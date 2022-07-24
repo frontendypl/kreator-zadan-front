@@ -54,7 +54,20 @@ export default new Vuex.Store({
     },
     setPlayer(context, player){
       context.commit('setPlayer', player)
-    }
+    },
+    async getListData({state}){
+      this.shortCodeError = ''
+      try {
+        const response = await axios.get(`${state.apiUrl}/lists/validation/${state.shortCode}`)
+        await this.setList(response.data)
+        await this.$router.push({name: 'EnterNameView', params: {shortCode: state.shortCode}})
+      }catch (e) {
+        this.shortCodeError = e.response.data.error
+        if(this.$route.path !== '/'){
+          await this.$router.push({path: '/'})
+        }
+      }
+    },
   },
   modules: {
   }

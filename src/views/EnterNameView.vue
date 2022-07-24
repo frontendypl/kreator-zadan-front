@@ -48,7 +48,6 @@ export default {
   methods :{
     ...mapActions(['setPlayer']),
     async handleForm() {
-
       try{
         const {data} = await axios.post(`${this.apiUrl}/players`, {name: this.playerName, listId: this.list._id})
         this.setPlayer(data)

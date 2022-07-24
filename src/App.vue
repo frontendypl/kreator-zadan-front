@@ -27,19 +27,20 @@ export default {
   },
   methods: {
     ...mapActions(['setList','setShortCode']),
-    async getListData(){
-      this.shortCodeError = ''
-      try {
-        const response = await axios.get(`${this.apiUrl}/lists/validation/${this.shortCode}`)
-        await this.setList(response.data)
-        await this.$router.push({name: 'EnterNameView', params: {shortCode: this.shortCode}})
-      }catch (e) {
-        this.shortCodeError = e.response.data.error
-        if(this.$route.path !== '/'){
-          await this.$router.push({path: '/'})
-        }
-      }
-    }
+    // async getListData(){
+    //   this.shortCodeError = ''
+    //   try {
+    //     const response = await axios.get(`${this.apiUrl}/lists/validation/${this.shortCode}`)
+    //     await this.setList(response.data)
+    //     await this.$router.push({name: 'EnterNameView', params: {shortCode: this.shortCode}})
+    //   }catch (e) {
+    //     this.shortCodeError = e.response.data.error
+    //     if(this.$route.path !== '/'){
+    //       await this.$router.push({path: '/'})
+    //     }
+    //   }
+    // },
+
   },
   watch: {
     shortCode: {
@@ -53,7 +54,8 @@ export default {
     player: {
       handler(newValue, oldValue){
         if(newValue._id){
-          this.$router.push({name: 'ExerciseView', params: {shortCode: this.list.shortCode}})
+          // this.$router.push({name: 'ExerciseView', params: {shortCode: this.list.shortCode}})
+
         }
       },
       deep: true
