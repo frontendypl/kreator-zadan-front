@@ -22,10 +22,10 @@ export default {
     }
   },
   computed: {
-    ...mapState(['list', 'shortCode'])
+    ...mapState(['list', 'shortCode', 'player'])
   },
   methods: {
-    ...mapActions(['setShortCode','getList'])
+    ...mapActions(['setShortCode','getList', 'getExercise'])
   },
   watch: {
     list: {
@@ -36,6 +36,12 @@ export default {
       },
       deep: true
     },
+    player: {
+      handler(){
+        this.getExercise()
+      },
+      deep: true
+    }
   },
   created(){
     if(this.$route.params.shortCode){

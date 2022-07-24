@@ -31,9 +31,6 @@ export default new Vuex.Store({
     },
   },
   getters: {
-    // playerName(){
-    //   return router.currentRoute.params.playerName || ''
-    // },
     apiUrl(){
       return location.href.indexOf('localhost') === -1? 'https://api.kreator-zadan.pl' : 'http://localhost:2000'
     },
@@ -97,6 +94,17 @@ export default new Vuex.Store({
         commit('setPlayerNameErrors', e.response.data.errors)
       }
     },
+
+    async getExercise({commit, state, getters}){
+      try{
+
+        const response = await axios.get(`${getters.apiUrl}/lists/${state.list._id}/${state.player._id}/exercises`)
+        console.log(response)
+
+      }catch (e) {
+
+      }
+    }
 
   },
   modules: {
