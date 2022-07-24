@@ -1,9 +1,9 @@
 <template>
   <div id="app" class="d-flex flex-column min-vh-100">
 
-    <AppHeaderComponent :list="list" />
+<!--    <AppHeaderComponent :list="list" />-->
 
-    <router-view :shortCodeError="shortCodeError"/>
+    <router-view />
 
   </div>
 </template>
@@ -15,58 +15,37 @@ import axios from "axios";
 import router from "@/router";
 
 export default {
-  components: {AppHeaderComponent},
+  // components: {AppHeaderComponent},
   data(){
     return {
-      shortCodeError: '',
+
     }
   },
   computed: {
-    ...mapState(['list', 'shortCode', 'player']),
-    ...mapGetters(['apiUrl']),
+    ...mapState(['list', 'shortCode'])
   },
   methods: {
-    ...mapActions(['setList','setShortCode']),
-    // async getListData(){
-    //   this.shortCodeError = ''
-    //   try {
-    //     const response = await axios.get(`${this.apiUrl}/lists/validation/${this.shortCode}`)
-    //     await this.setList(response.data)
-    //     await this.$router.push({name: 'EnterNameView', params: {shortCode: this.shortCode}})
-    //   }catch (e) {
-    //     this.shortCodeError = e.response.data.error
-    //     if(this.$route.path !== '/'){
-    //       await this.$router.push({path: '/'})
-    //     }
-    //   }
-    // },
-
+    ...mapActions(['setShortCode','getList'])
   },
   watch: {
-    shortCode: {
-      handler(newValue, oldValue){
-        if(newValue){
-          this.getListData()
+    list: {
+      handler(){
+        if(this.$route.name !== 'EnterNameView'){
+          this.$router.push({name: 'EnterNameView', params: {shortCode: this.shortCode}})
         }
       },
       deep: true
     },
-    player: {
-      handler(newValue, oldValue){
-        if(newValue._id){
-          // this.$router.push({name: 'ExerciseView', params: {shortCode: this.list.shortCode}})
-
-        }
-      },
-      deep: true
-    }
   },
   created(){
-    this.setShortCode(this.$router.currentRoute.params.shortCode || '')
+    if(this.$route.params.shortCode){
+      this.setShortCode(this.$route.params.shortCode)
+      this.getList()
+    }
   },
   mounted() {
-
-  }
+    console.log(this.$route)
+  },
 }
 </script>
 

@@ -2,12 +2,16 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 
 import router from "@/router";
+import axios from "axios";
 
 Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
     shortCode: '',
+    shortCodeErrors: {},
+    playerNameErrors: {},
+
     list: {
       _id: ''
     },
@@ -38,6 +42,12 @@ export default new Vuex.Store({
     setShortCode(state, shortCode){
       state.shortCode = shortCode
     },
+    setShortCodeErrors(state, errors){
+      state.shortCodeErrors = {...errors}
+    },
+    setPlayerNameErrors(state, errors){
+      state.playerNameErrors = {...errors}
+    },
     setList(state, list){
       state.list = {...state.list, ...list}
     },
@@ -46,28 +56,48 @@ export default new Vuex.Store({
     }
   },
   actions: {
-    setShortCode(context, shortCode){
-      context.commit('setShortCode', shortCode)
+    /**
+     * Set shortcode from input or URL
+     * @param commit
+     * @param {string} shortCode
+     */
+    setShortCode({commit}, shortCode){
+      commit('setShortCode', shortCode)
     },
-    setList(context, list){
-      context.commit('setList', list)
-    },
-    setPlayer(context, player){
-      context.commit('setPlayer', player)
-    },
-    async getListData({state}){
-      this.shortCodeError = ''
-      try {
-        const response = await axios.get(`${state.apiUrl}/lists/validation/${state.shortCode}`)
-        await this.setList(response.data)
-        await this.$router.push({name: 'EnterNameView', params: {shortCode: state.shortCode}})
+    /**
+     * get list data from API using shortcode
+     * @param commit
+     */
+    async getList({commit, dispatch, state, getters}){
+      commit('setShortCodeErrors', {})
+      try{
+        const response = await axios.post(`${getters.apiUrl}/lists/validation`,{
+          shortCode: state.shortCode
+        })
+        console.log({response})
+        commit('setList', response.data)
+
       }catch (e) {
-        this.shortCodeError = e.response.data.error
-        if(this.$route.path !== '/'){
-          await this.$router.push({path: '/'})
-        }
+        console.log(e.response.data)
+        commit('setShortCodeErrors', e.response.data.errors)
       }
     },
+
+    async setPlayer({commit, state, getters}, playerName){
+      commit('setPlayerNameErrors', {})
+
+      try{
+        const response = await axios.post(`${getters.apiUrl}/players`,{
+          name: playerName,
+          listId: state.list._id
+        })
+        commit('setPlayer', response.data)
+      }catch (e) {
+        console.log(e)
+        commit('setPlayerNameErrors', e.response.data.errors)
+      }
+    },
+
   },
   modules: {
   }

@@ -20,7 +20,9 @@
         </div>
         <div class="row">
           <div class="col">
-            <h4 class="text-danger">{{error}}</h4>
+            <h4 class="text-danger" v-for="(error, key) in playerNameErrors" :key="key">
+              {{error.message}}
+            </h4>
             <label for="enter-code-input">Wpisz swoje imię/pseudonim/nr dziennika itp</label>
           </div>
         </div>
@@ -37,24 +39,16 @@ export default {
   name: 'EnterNameView',
   data(){
     return {
-      playerName: '',
-      error: ''
+      playerName: ''
     }
   },
   computed: {
-    ...mapState(['player', 'list']),
-    ...mapGetters(['apiUrl'])
+    ...mapState(['playerNameErrors'])
   },
-  methods :{
+  methods: {
     ...mapActions(['setPlayer']),
     async handleForm() {
-      try{
-        const {data} = await axios.post(`${this.apiUrl}/players`, {name: this.playerName, listId: this.list._id})
-        this.setPlayer(data)
-      }catch (e) {
-        this.error = e.response.data.errors.name.message
-      }
-
+      this.setPlayer(this.playerName)
     }
   }
 }
