@@ -11,24 +11,10 @@ export default new Vuex.Store({
     shortCode: '',
     shortCodeErrors: {},
     playerNameErrors: {},
-
-    list: {
-      _id: ''
-    },
-    player: {
-      _id: '',
-      name: '',
-      listId: ''
-    },
-
-
-    activeExercise: {
-      id: 'sdv45345',
-      img: '',
-      imgLink: 'https://images.pexels.com/photos/1819656/pexels-photo-1819656.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
-      question: 'Jaką nazwe nosi to zjawisko?',
-      answers: [{id:1,text: 'Tęcza'},{id:2,text: 'Szron'},{id:3,text: 'Zorza polarna'},]
-    },
+    list: {},
+    player: {},
+    exercise: {},
+    wrongAnswer: false,
   },
   getters: {
     apiUrl(){
@@ -50,7 +36,23 @@ export default new Vuex.Store({
     },
     setPlayer(state, player){
       state.player = {...state.player, ...player}
-    }
+    },
+    getExercise(state, exercise){
+      state.exercise = {...exercise}
+    },
+    setWrongAnswer(state, payload){
+      state.wrongAnswer = payload
+    },
+
+    clearExercise(state){
+      state.exercise = {}
+    },
+    clearList(state){
+      state.list = {}
+    },
+    clearPlayer(state){
+      state.player = {}
+    },
   },
   actions: {
     /**
@@ -66,7 +68,9 @@ export default new Vuex.Store({
      * @param commit
      */
     async getList({commit, dispatch, state, getters}){
+      // commit('clearList')
       commit('setShortCodeErrors', {})
+
       try{
         const response = await axios.post(`${getters.apiUrl}/lists/validation`,{
           shortCode: state.shortCode
@@ -81,6 +85,7 @@ export default new Vuex.Store({
     },
 
     async setPlayer({commit, state, getters}, playerName){
+      // commit('clearPlayer')
       commit('setPlayerNameErrors', {})
 
       try{
@@ -96,14 +101,54 @@ export default new Vuex.Store({
     },
 
     async getExercise({commit, state, getters}){
-      try{
+      // commit('clearExercise')
+      console.log(state.exercise)
 
+      try{
         const response = await axios.get(`${getters.apiUrl}/lists/${state.list._id}/${state.player._id}/exercises`)
-        console.log(response)
+
+        if(response.data.completed){
+          console.log('completed')
+          return router.push({name: 'ResultView'})
+        }
+
+        commit('getExercise', response.data)
 
       }catch (e) {
-
+        console.log(e)
       }
+    },
+
+    /**
+     *
+     * @param state
+     * @param commit
+     * @param dispatch
+     * @param getters
+     * @param {string} isCorrect
+     * @param {string} userAnswerId
+     * @return {Promise<void>}
+     */
+    async postAnswer({state, commit, dispatch, getters}, {isCorrect, userAnswerId}){
+
+      try {
+        commit('setWrongAnswer',false)
+        const response = await axios.post(`${getters.apiUrl}/answers`,{
+          isCorrect,
+          userAnswerId,
+          playerId: state.player._id,
+          exerciseId: state.exercise.content._id
+        })
+        console.log(response.data)
+        if(response.data.isCorrect){
+          dispatch('getExercise')
+        }else{
+          commit('setWrongAnswer',true)
+        }
+      }catch (e) {
+        console.log(e)
+      }
+
     }
 
   },

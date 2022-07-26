@@ -22,7 +22,7 @@ export default {
     }
   },
   computed: {
-    ...mapState(['list', 'shortCode', 'player'])
+    ...mapState(['list', 'shortCode', 'player','exercise'])
   },
   methods: {
     ...mapActions(['setShortCode','getList', 'getExercise'])
@@ -39,6 +39,14 @@ export default {
     player: {
       handler(){
         this.getExercise()
+      },
+      deep: true
+    },
+    exercise: {
+      handler(){
+        if(this.$route.name === 'EnterNameView'){
+          this.$router.push({name: 'ExerciseView', params: {shortCode: this.shortCode}})
+        }
       },
       deep: true
     }

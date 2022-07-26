@@ -4,6 +4,7 @@ import VueRouter from 'vue-router'
 import EnterView from "@/views/EnterView";
 import EnterNameView from "@/views/EnterNameView";
 import ExerciseView from "@/views/ExerciseView";
+import ResultView from "@/views/ResultView";
 
 Vue.use(VueRouter)
 
@@ -22,6 +23,11 @@ const routes = [
     path: '/:shortCode/zadania',
     name: 'ExerciseView',
     component: ExerciseView
+  },
+  {
+    path: '/:shortCode/wyniki',
+    name: 'ResultView',
+    component: ResultView
   }
   // {
   //   path: '/about',
