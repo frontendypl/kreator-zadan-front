@@ -33,11 +33,11 @@
       <div class="row justify-content-center">
         <div class="col-auto">
           <button class="btn btn-primary btn-lg mb-2 w-100"
-                  v-for="answer in exercise.content.answers"
-                  :key="answer._id"
-                  @click="handleAnswer(answer)"
+                  v-for="option in exercise.content.answerOptions"
+                  :key="option._id"
+                  @click="handleAnswer(option)"
           >
-            {{answer.text}}
+            {{option.text}}
           </button>
         </div>
       </div>
@@ -57,14 +57,13 @@ export default {
     }
   },
   computed: {
-    ...mapState(['exercise','wrongAnswer'])
+    ...mapState(['exercise','wrongAnswer','player'])
   },
   methods: {
     ...mapActions(['postAnswer']),
-    handleAnswer(val){
+    handleAnswer(answerOption){
       this.postAnswer({
-        isCorrect: val.isCorrect,
-        userAnswerId: val._id
+        answerOption
       })
     }
   },

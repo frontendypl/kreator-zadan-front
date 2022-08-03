@@ -125,19 +125,19 @@ export default new Vuex.Store({
      * @param commit
      * @param dispatch
      * @param getters
-     * @param {string} isCorrect
-     * @param {string} userAnswerId
+     * @param {Object} answerOption
      * @return {Promise<void>}
      */
-    async postAnswer({state, commit, dispatch, getters}, {isCorrect, userAnswerId}){
+    async postAnswer({state, commit, dispatch, getters}, {answerOption}){
 
       try {
         commit('setWrongAnswer',false)
         const response = await axios.post(`${getters.apiUrl}/answers`,{
-          isCorrect,
-          userAnswerId,
-          playerId: state.player._id,
-          exerciseId: state.exercise.content._id
+          isCorrect: answerOption.isCorrect,
+          list: state.list._id,
+          player: state.player._id,
+          exercise: state.exercise.content._id,
+          answerOption: answerOption._id
         })
         console.log(response.data)
         if(response.data.isCorrect){
