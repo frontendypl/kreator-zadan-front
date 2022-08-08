@@ -36,6 +36,7 @@
                   v-for="option in exercise.content.answerOptions"
                   :key="option._id"
                   @click="handleAnswer(option)"
+                  :disabled="answerLoader"
           >
             {{option.text}}
           </button>
@@ -57,10 +58,10 @@ export default {
     }
   },
   computed: {
-    ...mapState(['exercise','wrongAnswer','player'])
+    ...mapState(['answerLoader','exercise','wrongAnswer','player'])
   },
   methods: {
-    ...mapActions(['postAnswer']),
+    ...mapActions(['postAnswer','setAnswerLoader']),
     handleAnswer(answerOption){
       this.postAnswer({
         answerOption

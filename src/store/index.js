@@ -8,6 +8,7 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
+    answerLoader: false,
     shortCode: '',
     shortCodeErrors: {},
     playerNameErrors: {},
@@ -22,6 +23,9 @@ export default new Vuex.Store({
     },
   },
   mutations: {
+    setAnswerLoader(state, payload){
+      state.answerLoader = payload
+    },
     setShortCode(state, shortCode){
       state.shortCode = shortCode
     },
@@ -55,6 +59,14 @@ export default new Vuex.Store({
     },
   },
   actions: {
+    /**
+     *
+     * @param state
+     * @param {Boolean} payload
+     */
+    setAnswerLoader(state, payload){
+      state.answerLoader = payload
+    },
     /**
      * Set shortcode from input or URL
      * @param commit
@@ -131,6 +143,7 @@ export default new Vuex.Store({
     async postAnswer({state, commit, dispatch, getters}, {answerOption}){
 
       try {
+        commit('setAnswerLoader', true)
         commit('setWrongAnswer',false)
         const response = await axios.post(`${getters.apiUrl}/answers`,{
           isCorrect: answerOption.isCorrect,
@@ -145,6 +158,7 @@ export default new Vuex.Store({
         }else{
           commit('setWrongAnswer',true)
         }
+        commit('setAnswerLoader', false)
       }catch (e) {
         console.log(e)
       }
