@@ -1,8 +1,7 @@
 <template>
   <div id="app" class="d-flex flex-column min-vh-100">
-
+    <AppLoaderComponent v-if="appLoader" />
 <!--    <AppHeaderComponent :list="list" />-->
-
     <router-view />
 
   </div>
@@ -10,22 +9,22 @@
 
 <script>
 import {mapState, mapGetters, mapActions} from "vuex"
-import AppHeaderComponent from "@/components/AppHeaderComponent";
-import axios from "axios";
-import router from "@/router";
+import AppLoaderComponent from "@/components/AppLoaderComponent";
+// import AppHeaderComponent from "@/components/AppHeaderComponent";
+// import axios from "axios";
 
 export default {
-  // components: {AppHeaderComponent},
+  components: {AppLoaderComponent},
   data(){
     return {
 
     }
   },
   computed: {
-    ...mapState(['list', 'shortCode', 'player','exercise'])
+    ...mapState(['appLoader', 'list', 'shortCode', 'player','exercise'])
   },
   methods: {
-    ...mapActions(['setShortCode','getList', 'getExercise'])
+    ...mapActions(['setShortCode','getList', 'getExercise','returnPlayerSession'])
   },
   watch: {
     list: {
@@ -52,6 +51,8 @@ export default {
     }
   },
   created(){
+    this.returnPlayerSession()
+
     if(this.$route.params.shortCode){
       this.setShortCode(this.$route.params.shortCode)
       this.getList()

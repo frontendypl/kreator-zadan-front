@@ -2,7 +2,7 @@
   <div class="v-ResultView">
     Koniec <br>
     Dobre Odpowiedzi: 10, <br>
-    Błędy: 1 <br>
+    Błędy: {{userAnswers.filter(answer=>!answer.answerOption.isCorrect).length}} <br>
     Gratulacje
 
     <br><br>
@@ -14,12 +14,18 @@
 </template>
 
 <script>
-import {mapState} from 'vuex'
+import {mapState, mapActions} from 'vuex'
 
 export default {
   name: 'ResultView',
   computed: {
-    ...mapState(['list'])
+    ...mapState(['list', 'userAnswers'])
+  },
+  methods:{
+    ...mapActions(['clearPlayerSession'])
+  },
+  mounted() {
+    this.clearPlayerSession()
   }
 }
 </script>
