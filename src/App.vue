@@ -27,17 +27,27 @@ export default {
     ...mapActions(['setShortCode','getList', 'getExercise','returnPlayerSession'])
   },
   watch: {
+    shortCode: {
+      handler(newValue, oldValue){
+        localStorage.setItem('shortCode', newValue)
+      }
+    },
     list: {
       handler(){
-        if(this.$route.name !== 'EnterNameView'){
+        if(this.$route.name !== 'EnterNameView' && !this.player._id){
           this.$router.push({name: 'EnterNameView', params: {shortCode: this.shortCode}})
+        }
+        if(this.player._id){
+          this.getExercise()
         }
       },
       deep: true
     },
     player: {
       handler(){
-        this.getExercise()
+        if(this.list._id){
+          this.getExercise()
+        }
       },
       deep: true
     },

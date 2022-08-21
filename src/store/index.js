@@ -101,9 +101,7 @@ export default new Vuex.Store({
         const response = await axios.post(`${getters.apiUrl}/lists/validation`,{
           shortCode: state.shortCode
         })
-        console.log({response})
         commit('setList', response.data)
-        localStorage.setItem('list', JSON.stringify(response.data))
         dispatch('setAppLoader', false)
       }catch (e) {
         console.log(e.response.data)
@@ -131,9 +129,7 @@ export default new Vuex.Store({
     },
 
     async getExercise({commit, state, getters, dispatch}){
-      // commit('clearExercise')
-      console.log(state.exercise)
-
+      dispatch('setAppLoader', true)
       try{
         const response = await axios.get(`${getters.apiUrl}/lists/${state.list._id}/${state.player._id}/exercises`)
 
@@ -143,7 +139,9 @@ export default new Vuex.Store({
         }
 
         commit('getExercise', response.data)
+
         dispatch('setAppLoader', false)
+        await router.push({name: 'ExerciseView', params: {shortCode: state.shortCode}})
       }catch (e) {
         console.log(e)
       }
@@ -186,17 +184,12 @@ export default new Vuex.Store({
      * Return player data from last session
      * @param commit
      */
-    returnPlayerSession({commit}){
+    returnPlayerSession({commit, state}){
       const shortCode = localStorage.getItem('shortCode')
       if(shortCode){
-        commit('setShortCode', JSON.parse(shortCode) )
+        commit('setShortCode', shortCode )
+        router.push({name: 'EnterNameView', params: {shortCode: state.shortCode}})
       }
-
-      const list = localStorage.getItem('list')
-      if(list){
-        commit('setList', JSON.parse(list) )
-      }
-
       const player = localStorage.getItem('player')
       if(player){
         commit('setPlayer', JSON.parse(player) )
