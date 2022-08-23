@@ -21,7 +21,7 @@ export default {
     }
   },
   computed: {
-    ...mapState(['appLoader', 'list', 'shortCode', 'player','exercise'])
+    ...mapState(['appLoader', 'list', 'shortCode', 'player','exercise','userLists'])
   },
   methods: {
     ...mapActions(['setShortCode','getList', 'getExercise','returnPlayerSession'])
@@ -43,6 +43,12 @@ export default {
       },
       deep: true
     },
+    userLists: {
+      handler(){
+        this.$router.push({name: 'UserLists'})
+      },
+      deep: true
+    },
     player: {
       handler(){
         if(this.list._id){
@@ -61,7 +67,7 @@ export default {
     }
   },
   created(){
-    this.returnPlayerSession()
+    this.returnPlayerSession(this.$route.params.shortCode)
 
     if(this.$route.params.shortCode){
       this.setShortCode(this.$route.params.shortCode)

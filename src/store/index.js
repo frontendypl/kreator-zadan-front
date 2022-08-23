@@ -14,6 +14,7 @@ export default new Vuex.Store({
     shortCodeErrors: {},
     playerNameErrors: {},
     list: {},
+    userLists: [],
     player: {},
     exercise: {},
     wrongAnswer: false,
@@ -22,6 +23,9 @@ export default new Vuex.Store({
   getters: {
     apiUrl(){
       return location.href.indexOf('localhost') === -1? 'https://api.kreator-zadan.pl' : 'http://localhost:2000'
+    },
+    frontUrl(){
+      return location.href.indexOf('localhost') === -1? 'https://kreator-zadan.pl' : 'http://localhost:8081'
     },
   },
   mutations: {
@@ -42,6 +46,9 @@ export default new Vuex.Store({
     },
     setList(state, list){
       state.list = {...state.list, ...list}
+    },
+    setUserLists(state, userLists){
+      state.userLists = [...userLists]
     },
     setPlayer(state, player){
       state.player = {...state.player, ...player}
@@ -101,7 +108,8 @@ export default new Vuex.Store({
         const response = await axios.post(`${getters.apiUrl}/lists/validation`,{
           shortCode: state.shortCode
         })
-        commit('setList', response.data)
+        response.data.list ? commit('setList', response.data.list) : commit('setUserLists', response.data.userLists)
+
         dispatch('setAppLoader', false)
       }catch (e) {
         console.log(e.response.data)
@@ -184,16 +192,23 @@ export default new Vuex.Store({
      * Return player data from last session
      * @param commit
      */
-    returnPlayerSession({commit, state}){
+    returnPlayerSession({commit, state, dispatch}, urlShortCode){
       const shortCode = localStorage.getItem('shortCode')
-      if(shortCode){
-        commit('setShortCode', shortCode )
-        router.push({name: 'EnterNameView', params: {shortCode: state.shortCode}})
+
+      if(urlShortCode === shortCode || !urlShortCode){
+        if(shortCode){
+          commit('setShortCode', shortCode )
+          router.push({name: 'EnterNameView', params: {shortCode: state.shortCode}})
+        }
+        const player = localStorage.getItem('player')
+        if(player){
+          commit('setPlayer', JSON.parse(player) )
+        }
       }
-      const player = localStorage.getItem('player')
-      if(player){
-        commit('setPlayer', JSON.parse(player) )
+      else{
+        dispatch('clearPlayerSession')
       }
+
     },
     /**
      * Clear localStorage data after

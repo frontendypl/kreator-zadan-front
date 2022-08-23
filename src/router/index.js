@@ -5,6 +5,8 @@ import EnterView from "@/views/EnterView";
 import EnterNameView from "@/views/EnterNameView";
 import ExerciseView from "@/views/ExerciseView";
 import ResultView from "@/views/ResultView";
+import UserLists from "@/views/UserLists";
+
 
 Vue.use(VueRouter)
 
@@ -23,6 +25,11 @@ const routes = [
     path: '/:shortCode/zadania',
     name: 'ExerciseView',
     component: ExerciseView
+  },
+  {
+    path: '/:shortCode/listy-zadan',
+    name: 'UserLists',
+    component: UserLists
   },
   {
     path: '/:shortCode/wyniki',
