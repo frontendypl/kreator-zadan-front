@@ -93,7 +93,9 @@ export default new Vuex.Store({
      */
     setShortCode({state, commit}, shortCode){
       commit('setShortCode', shortCode)
-      localStorage.setItem('shortCode', JSON.stringify(state.shortCode))
+      if(shortCode.slice(0,1) === 'L'){
+        localStorage.setItem('shortCode', state.shortCode)
+      }
     },
     /**
      * get list data from API using shortcode

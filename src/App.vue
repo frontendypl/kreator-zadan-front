@@ -21,15 +21,28 @@ export default {
     }
   },
   computed: {
-    ...mapState(['appLoader', 'list', 'shortCode', 'player','exercise','userLists'])
+    ...mapState(['appLoader', 'list', 'shortCode', 'player','exercise','userLists']),
+    urlShortCode(){
+      return this.$route.params.shortCode
+    }
   },
   methods: {
     ...mapActions(['setShortCode','getList', 'getExercise','returnPlayerSession'])
   },
   watch: {
+    urlShortCode: {
+      handler(newValue, oldValue){
+        console.log({newValue})
+        console.log({oldValue})
+        if(newValue){
+          console.log(newValue)
+          this.setShortCode(newValue)
+        }
+      }
+    },
     shortCode: {
       handler(newValue, oldValue){
-        localStorage.setItem('shortCode', newValue)
+        this.getList()
       }
     },
     list: {
