@@ -22,10 +22,10 @@ export default new Vuex.Store({
   },
   getters: {
     apiUrl(){
-      return location.href.indexOf('localhost') === -1? 'https://api.kreator-zadan.pl' : 'http://localhost:2000'
+      return location.href.indexOf('localhost') === -1? 'https://pytania-api.ucze.net' : 'http://localhost:2000'
     },
     frontUrl(){
-      return location.href.indexOf('localhost') === -1? 'https://kreator-zadan.pl' : 'http://localhost:8081'
+      return location.href.indexOf('localhost') === -1? 'https://pytania.ucze.net' : 'http://localhost:8081'
     },
   },
   mutations: {
