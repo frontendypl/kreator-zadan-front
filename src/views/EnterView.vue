@@ -11,7 +11,7 @@
         <div class="row gx-2 justify-content-center">
           <div class="col col-xl-5">
             <input type="text" id="name-input" class="form-control form-control-lg w-100 fs-1 mb-2 text-center"
-                   v-model="shortCodeValue"
+                   v-model="shortCode"
             >
           </div>
           <div class="col col-auto">
@@ -44,23 +44,24 @@ export default {
   },
   data(){
     return {
-
+      shortCode: ''
     }
   },
   computed: {
-    ...mapState(['shortCode','shortCodeErrors']),
-    shortCodeValue: {
-      get(){
-        return this.shortCode
-      },
-      set(val){
-        this.setShortCode(val)
-      }
-    }
+    ...mapState(['shortCodeErrors']),
+    // shortCodeValue: {
+    //   get(){
+    //     return this.shortCode
+    //   },
+    //   set(val){
+    //     this.setShortCode(val)
+    //   }
+    // }
   },
   methods: {
   ...mapActions(['setShortCode','getList']),
     handleForm(){
+      this.setShortCode(this.shortCode)
       this.getList()
     }
   },
