@@ -2,7 +2,9 @@
   <div id="app" class="d-flex flex-column min-vh-100">
     <AppLoaderComponent v-if="appLoader" />
     <AppHeaderComponent
+        :shortCode="shortCode"
         :list="list"
+        :player="player"
         :clearPlayerSession="clearPlayerSession"
         :setAppLoader="setAppLoader"
     />

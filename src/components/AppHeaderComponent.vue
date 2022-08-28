@@ -1,11 +1,14 @@
 <template>
   <nav class=" c-AppHeaderComponent navbar bg-dark text-light">
-    <div class="container-fluid d-flex justify-content-center">
+    <div class="container-fluid d-flex justify-content-between">
       <div>
         Pytania.ucze.net
       </div>
       <div v-if="list._id">
-        <a class="navbar-brand text-light" href="#">{{list.name}}</a>
+        {{list.name}} - {{shortCode}}
+      </div>
+      <div v-if="player._id">
+        {{player.name}}
       </div>
       <div v-if="list._id">
         <button class="btn btn-light" @click="restartApp">Restart</button>
@@ -18,8 +21,14 @@
 export default {
   name: 'AppHeaderComponent',
   props: {
+    shortCode: {
+      type: String,
+    },
     list: {
       type: Object,
+    },
+    player: {
+      type: Object
     },
     clearPlayerSession: {
       type: Function

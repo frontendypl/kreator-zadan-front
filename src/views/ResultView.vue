@@ -35,7 +35,7 @@ export default {
     ...mapActions(['clearPlayerSession','setAppLoader','setPlayer']),
     startAgain(){
       this.setAppLoader(true)
-      this.clearPlayerSession()
+      // this.clearPlayerSession()
       this.$router.push({name: 'EnterNameView', params: {shortCode: this.shortCode}})
       this.setPlayer(this.player.name)
       //
@@ -48,7 +48,6 @@ export default {
     }
   },
   mounted() {
-    this.clearPlayerSession()
   },
 }
 </script>
