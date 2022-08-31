@@ -32,18 +32,22 @@
           >{{ exercise.content.content }}</h2>
         </div>
       </div>
-      <div class="row justify-content-center mb-2" v-if="wrongAnswer">
-        <div class="col-auto" >
-          <h3 class="text-danger">Zła odpowiedź, wybierz inną!</h3>
-        </div>
-      </div>
+<!--      <div class="row justify-content-center mb-2" v-if="wrongAnswer">-->
+<!--        <div class="col-auto" >-->
+<!--          <h3 class="text-danger">Zła odpowiedź, wybierz inną!</h3>-->
+<!--        </div>-->
+<!--      </div>-->
       <div class="row justify-content-center">
         <div class="col-auto">
           <button class="answer-button btn btn-primary btn-lg mb-2 w-100"
+                  :class="{
+                    'btn-danger': wrongAnswer && (option._id === userAnswerOption._id),
+                    'btn-success': !wrongAnswer && (option._id === userAnswerOption._id)
+                  }"
                   v-for="option in exercise.content.answerOptions"
                   :key="option._id"
                   @click="handleAnswer(option)"
-                  :disabled="answerLoader"
+                  :disabled="answerLoader || (userAnswerOption._id && userAnswerOption.isCorrect)"
           >
             {{option.text}}
           </button>
@@ -65,7 +69,7 @@ export default {
     }
   },
   computed: {
-    ...mapState(['answerLoader','exercise','wrongAnswer','player'])
+    ...mapState(['answerLoader','exercise','wrongAnswer','player','userAnswerOption'])
   },
   methods: {
     ...mapActions(['postAnswer','setAnswerLoader']),

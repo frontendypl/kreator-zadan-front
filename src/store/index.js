@@ -18,7 +18,8 @@ export default new Vuex.Store({
     player: {},
     exercise: {},
     wrongAnswer: false,
-    userAnswers: []
+    userAnswers: [],
+    userAnswerOption: {}
   },
   getters: {
     apiUrl(){
@@ -58,6 +59,9 @@ export default new Vuex.Store({
     },
     setWrongAnswer(state, payload){
       state.wrongAnswer = payload
+    },
+    setUserAnswerOption(state,payload){
+      state.userAnswerOption = payload
     },
 
     getUserAnswers(state, payload){
@@ -140,6 +144,7 @@ export default new Vuex.Store({
 
     async getExercise({commit, state, getters, dispatch}){
       dispatch('setAppLoader', true)
+      commit('setUserAnswerOption', {})
       try{
         const response = await axios.get(`${getters.apiUrl}/lists/${state.list._id}/${state.player._id}/exercises`)
 
@@ -171,6 +176,10 @@ export default new Vuex.Store({
       try {
         dispatch('setAnswerLoader', true)
         commit('setWrongAnswer',false)
+
+        commit('setUserAnswerOption', {})
+        commit('setUserAnswerOption', answerOption)
+
         const response = await axios.post(`${getters.apiUrl}/answers`,{
           isCorrect: answerOption.isCorrect,
           list: state.list._id,
@@ -180,7 +189,9 @@ export default new Vuex.Store({
         })
         console.log(response.data)
         if(response.data.isCorrect){
-          dispatch('getExercise')
+          setTimeout(()=>{
+            dispatch('getExercise')
+          },1000)
         }else{
           commit('setWrongAnswer',true)
         }
