@@ -51,3 +51,8 @@ export default {
   },
 }
 </script>
+
+<style lang="scss">
+//https://blog.logrocket.com/best-practices-for-loading-fonts-in-vue/
+
+</style>

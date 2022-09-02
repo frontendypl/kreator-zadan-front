@@ -4,25 +4,25 @@
   >
 
     <div class="container text-center" v-if="exercise.content">
-      <div class="row mb-3">
+      <div class="image-container row mb-3">
         <div class="col" v-if="exercise.imageObject">
 
           <img
               :src="exercise.imageObject.url"
-              class="exercise-image img-fluid"
+              class="image-container__img img-fluid"
               alt=""
               v-if="exercise.imageObject.srcType === 'url' "
           >
           <img
               :src="`data:${exercise.imageObject.mimetype};base64,${exercise.imageObject.src}`"
-              class="img-fluid"
+              class="image-container__img img-fluid"
               :alt="exercise.imageObject.originalname"
                v-if="exercise.imageObject.srcType === 'buffer' "
           >
         </div>
       </div>
-      <div class="row mb-5"
-
+      <div class="content-container row mb-5"
+           :class="[`font-${exercise.content.contentFont}`]"
       >
         <div class="col">
           <h2 class="text-content"
@@ -37,7 +37,9 @@
 <!--          <h3 class="text-danger">Zła odpowiedź, wybierz inną!</h3>-->
 <!--        </div>-->
 <!--      </div>-->
-      <div class="row justify-content-center">
+      <div class="answers-container row justify-content-center"
+           :class="[`font-${exercise.content.answersFont}`]"
+      >
         <div class="col-auto">
           <button class="answer-button btn btn-primary btn-lg mb-2 w-100"
                   :class="{
@@ -94,29 +96,45 @@ export default {
 
   }
 
-  .text-content {
-    font-size: 4rem;
+  .image-container {
 
-    &--long{
+    .image-container__img {
+      max-height: 50vh;
+      width: auto;
+    }
+  }
+
+  .content-container{
+
+    &.font-element{
+      font-family: element, sans-serif;
+    }
+
+    .text-content {
+      font-size: 4rem;
+
+      &--long{
+        font-size: 2rem;
+      }
+
+      &--very-long{
+        font-size: 1.5rem;
+      }
+    }
+  }
+
+  .answers-container{
+
+    &.font-element{
+      font-family: element, sans-serif;
+    }
+
+    .answer-button {
       font-size: 2rem;
     }
 
-    &--very-long{
-      font-size: 1.5rem;
-    }
   }
 
-  .answer-button {
-    font-size: 2rem;
-  }
 
-  .exercise-image{
-    max-height: 50vh;
-    width: auto;
-  }
-
-  .answer-button {
-
-  }
 }
 </style>
