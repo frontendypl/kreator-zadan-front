@@ -8,6 +8,7 @@
         :clearPlayerSession="clearPlayerSession"
         :setAppLoader="setAppLoader"
     />
+    <PWAPrompt />
     <router-view />
 
   </div>
@@ -17,10 +18,11 @@
 import {mapState, mapGetters, mapActions} from "vuex"
 import AppLoaderComponent from "@/components/AppLoaderComponent";
 import AppHeaderComponent from "@/components/AppHeaderComponent";
+import PWAPrompt from "@/components/PWAPrompt";
 // import axios from "axios";
 
 export default {
-  components: {AppLoaderComponent, AppHeaderComponent},
+  components: {PWAPrompt, AppLoaderComponent, AppHeaderComponent},
   data(){
     return {
 
