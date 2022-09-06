@@ -9,7 +9,7 @@ module.exports = defineConfig({
   transpileDependencies: true,
 
   pwa: {
-    name: "Pytania - Ucze.pl",
+    name: "Pytania",
     themeColor: "#ffd100",
     GenerateSW: true
   }

@@ -120,7 +120,11 @@ export default new Vuex.Store({
       }catch (e) {
         console.log(e.response.data)
         commit('setShortCodeErrors', e.response.data.errors)
+        if(router.history.current.name !== 'StartCodeView'){
+          await router.push({name: 'StartCodeView'})
+        }
         dispatch('setAppLoader', false)
+
       }
     },
 
