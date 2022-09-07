@@ -148,7 +148,7 @@ export default {
     }
 
     .answer-button {
-      font-size: 1.5em;
+      font-size: 3em;
       font-weight: 600;
     }
 
