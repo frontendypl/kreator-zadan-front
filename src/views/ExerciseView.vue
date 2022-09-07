@@ -4,8 +4,8 @@
   >
 
     <div class="container text-center" v-if="exercise.content">
-      <div class="image-container row mb-3">
-        <div class="col" v-if="exercise.imageObject">
+      <div class="image-container row my-3" v-if="exercise.imageObject">
+        <div class="col" >
 
           <img
               :src="exercise.imageObject.url"
@@ -21,8 +21,9 @@
           >
         </div>
       </div>
-      <div class="content-container row mb-5"
+      <div class="content-container row"
            :class="[`font-${exercise.content.contentFont}`]"
+           v-if="exercise.content.content"
       >
         <div class="col">
           <h2 class="text-content"
@@ -41,7 +42,7 @@
            :class="[`font-${exercise.content.answersFont}`]"
       >
         <div class="col-auto">
-          <button class="answer-button btn btn-primary btn-lg mb-2 w-100"
+          <button class="answer-button btn btn-primary mb-1 w-100"
                   :class="{
                     'btn-danger': wrongAnswer && (option._id === userAnswerOption._id),
                     'btn-success': !wrongAnswer && (option._id === userAnswerOption._id)
