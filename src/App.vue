@@ -111,6 +111,7 @@ body{
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
+  background-attachment: fixed;
   min-height: 100vh;
 }
 
