@@ -4,18 +4,18 @@
   >
 
     <div class="container text-center" v-if="exercise.content">
-      <div class="image-container row my-3" v-if="exercise.imageObject">
+      <div class="image-container row" v-if="exercise.imageObject">
         <div class="col" >
 
           <img
               :src="exercise.imageObject.url"
-              class="image-container__img img-fluid"
+              class="image-container__img"
               alt=""
               v-if="exercise.imageObject.srcType === 'url' "
           >
           <img
               :src="`data:${exercise.imageObject.mimetype};base64,${exercise.imageObject.src}`"
-              class="image-container__img img-fluid"
+              class="image-container__img"
               :alt="exercise.imageObject.originalname"
                v-if="exercise.imageObject.srcType === 'buffer' "
           >
@@ -26,11 +26,11 @@
            v-if="exercise.content.content"
       >
         <div class="col">
-          <h2 class="text-content"
+          <p class="text-content"
               :class="{'text-content--long': exercise.content.content.length > 100,
               'text-content--very-long': exercise.content.content.length > 500
           }"
-          >{{ exercise.content.content }}</h2>
+          >{{ exercise.content.content }}</p>
         </div>
       </div>
 <!--      <div class="row justify-content-center mb-2" v-if="wrongAnswer">-->
@@ -93,45 +93,62 @@ export default {
 <style lang="scss">
 .v-ExerciseView{
 
+  font-size: 10px;
+  @media (min-width: 450px) {
+    font-size: 16px;
+  }
+
+
   &--no-image{
 
   }
 
   .image-container {
-
+    margin-bottom:2em;
     .image-container__img {
       max-height: 50vh;
-      width: auto;
+      //width: auto;
     }
   }
 
   .content-container{
+    margin-bottom: 2em;
 
     &.font-element{
       font-family: element, sans-serif;
     }
 
     .text-content {
-      font-size: 4rem;
+      margin-bottom: 0;
+
+      font-size: 3em;
+      font-weight: 600;
 
       &--long{
-        font-size: 2rem;
+        //font-size: 2rem;
       }
 
       &--very-long{
-        font-size: 1.5rem;
+        //font-size: 1.5rem;
       }
     }
   }
 
   .answers-container{
 
+    @media (min-width: 1000px) {
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+
     &.font-element{
       font-family: element, sans-serif;
     }
 
     .answer-button {
-      font-size: 2rem;
+      font-size: 1.5em;
+      font-weight: 600;
     }
 
   }
