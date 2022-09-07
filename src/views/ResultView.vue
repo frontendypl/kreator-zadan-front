@@ -2,24 +2,27 @@
   <div class="v-ResultView my-auto">
 
     <div class="container">
-      <div class="summary row mb-5">
+      <div class="summary row">
         <div class="col-12 text-center">
           <h1 class="summary__text">
-            <span class="summary__text__span summary__text__span--wrong" title="Ilość błędów">{{wrongAnswers.length}}</span>
-            /
-            <span class="summary__text__span summary__text__span--correct" title="Ilość odpowiedzi">{{correctAnswers.length}}</span>
+            Błędy: {{wrongAnswers.length}}
           </h1>
+          <h2 class="summary__congrats"
+              v-if="!wrongAnswers.length"
+          >
+            Gratulacje !
+          </h2>
         </div>
       </div>
 
       <div class="buttons row justify-content-center gy-2">
         <div class="col-12 col-md-6 col-lg-3">
-          <button class="btn btn-lg btn-primary w-100" @click="startAgain">
+          <button class="buttons__button btn btn-primary w-100" @click="startAgain">
             Rozwiąż jeszcze raz
           </button>
         </div>
         <div class="col-12 col-md-6 col-lg-3">
-          <button class="btn btn-lg btn-danger w-100" @click="restartApp">
+          <button class="buttons__button btn btn-danger w-100" @click="restartApp">
             Koniec
           </button>
         </div>
@@ -67,22 +70,28 @@ export default {
 <style lang="scss">
 //https://blog.logrocket.com/best-practices-for-loading-fonts-in-vue/
 .v-ResultView{
+  font-size: 10px;
+
 
   .summary {
+    margin-bottom: 3em;
+    @media (min-width: 450px) {
+      font-size: 16px;
+    }
 
     &__text {
+      font-size: 7em;
+    }
+    &__congrats {
+      font-size:4em;
+    }
+  }
 
-      font-size: 8em;
-      &__span{
+  .buttons{
 
-        &--correct{
-          color: #198754;
-        }
-        &--wrong{
-          color: #bb2d3b;
-        }
-
-      }
+    &__button{
+      font-size: 3em;
+      font-weight: 600;
     }
   }
 }

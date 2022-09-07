@@ -98,6 +98,7 @@ export default {
     font-size: 16px;
   }
 
+  padding: 2em;
 
   &--no-image{
 
