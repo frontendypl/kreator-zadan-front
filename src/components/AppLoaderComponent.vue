@@ -12,12 +12,12 @@
         </div>
         <div class="spinner-grow text-warning" role="status">
         </div>
-        <div class="spinner-grow text-info" role="status">
-        </div>
-        <div class="spinner-grow text-light" role="status">
-        </div>
-        <div class="spinner-grow text-dark" role="status">
-        </div>
+<!--        <div class="spinner-grow text-info" role="status">-->
+<!--        </div>-->
+<!--        <div class="spinner-grow text-light" role="status">-->
+<!--        </div>-->
+<!--        <div class="spinner-grow text-dark" role="status">-->
+<!--        </div>-->
       </div>
     </div>
   </div>

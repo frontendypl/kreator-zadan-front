@@ -106,6 +106,10 @@ export default {
 @import "bootstrap/dist/css/bootstrap.min.css";
 @import "bootstrap-icons/font/bootstrap-icons.css";
 
+.font-element{
+  font-family: element, sans-serif;
+}
+
 body{
   background-image: url("@/assets/images/background.jpg");
   background-size: cover;

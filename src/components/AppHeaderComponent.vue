@@ -1,19 +1,16 @@
 <template>
   <nav class=" c-AppHeaderComponent navbar bg-dark text-light">
     <div class="container d-flex justify-content-between">
-      <div class="d-flex">
-<!--        <div>-->
-<!--          Pytania.ucze.net-->
-<!--        </div>-->
-        <div class=""
-            v-if="list._id"
-        >
-          {{list.name}} - <span class="p-1 fw-bold">{{shortCode}}</span>
-        </div>
+      <div class="font-element" v-if="screenWidth>600 || !list._id">
+        <a class="link-light text-decoration-none" href="https://ucze.net">ucze.net</a>
+      </div>
+      <div v-if="list._id"
+      >
+        {{list.name}} - <span class="p-1 fw-bold">{{shortCode}}</span>
       </div>
       <div>
-        <div v-if="player._id">
-          {{player.name}} <button class="btn btn-outline-danger ms-2" @click="restartApp" v-if="list._id">Zamknij</button>
+        <div class="d-flex align-items-center" v-if="list._id">
+          <span class="me-4" v-if="player._id">{{player.name}}</span> <button class="btn btn-outline-danger ms-2" @click="restartApp" v-if="list._id">Zamknij</button>
         </div>
       </div>
     </div>
@@ -38,6 +35,11 @@ export default {
     },
     setAppLoader: {
       type: Function
+    }
+  },
+  computed: {
+    screenWidth(){
+      return window.outerWidth
     }
   },
   methods: {

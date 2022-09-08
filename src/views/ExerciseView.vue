@@ -115,10 +115,6 @@ export default {
   .content-container{
     margin-bottom: 2em;
 
-    &.font-element{
-      font-family: element, sans-serif;
-    }
-
     .text-content {
       margin-bottom: 0;
 
@@ -140,11 +136,6 @@ export default {
     @media (min-width: 1000px) {
       max-width: 600px;
       margin: 0 auto;
-    }
-
-
-    &.font-element{
-      font-family: element, sans-serif;
     }
 
     .answer-button {
