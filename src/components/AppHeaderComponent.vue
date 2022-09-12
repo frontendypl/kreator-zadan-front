@@ -1,8 +1,8 @@
 <template>
   <nav class=" c-AppHeaderComponent navbar bg-dark text-light">
     <div class="container d-flex justify-content-between">
-      <div class="font-element" v-if="screenWidth>600 || !list._id">
-        <a class="link-light text-decoration-none" href="https://ucze.net">ucze.net</a>
+      <div class="logo font-element" v-if="screenWidth>600 || !list._id">
+        <a class="logo__link link-light text-decoration-none" href="https://ucze.net">ucze.net</a>
       </div>
       <div v-if="list._id"
       >
@@ -52,3 +52,14 @@ export default {
   }
 }
 </script>
+
+<style lang="scss" scoped>
+  .c-AppHeaderComponent{
+
+    .logo{
+      &__link {
+        font-size: 2em;
+      }
+    }
+  }
+</style>

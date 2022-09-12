@@ -8,8 +8,10 @@
         :clearPlayerSession="clearPlayerSession"
         :setAppLoader="setAppLoader"
     />
-    <PWAPrompt />
+
     <router-view />
+
+<!--    <PWAPrompt />-->
 
   </div>
 </template>
