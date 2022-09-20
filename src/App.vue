@@ -24,7 +24,11 @@ import PWAPrompt from "@/components/PWAPrompt";
 // import axios from "axios";
 
 export default {
-  components: {PWAPrompt, AppLoaderComponent, AppHeaderComponent},
+  components: {
+    // PWAPrompt,
+    AppLoaderComponent,
+    AppHeaderComponent
+  },
   data(){
     return {
 
@@ -68,7 +72,7 @@ export default {
     },
     userLists: {
       handler(){
-        this.$router.push({name: 'UserLists'})
+        this.$router.push({name: 'UserListsView', params: {shortCode: this.shortCode}})
       },
       deep: true
     },

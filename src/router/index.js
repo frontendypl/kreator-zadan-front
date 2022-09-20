@@ -5,7 +5,7 @@ import EnterView from "@/views/EnterView";
 import EnterNameView from "@/views/EnterNameView";
 import ExerciseView from "@/views/ExerciseView";
 import ResultView from "@/views/ResultView";
-import UserLists from "@/views/UserLists";
+import UserListsView from "@/views/UserListsView";
 
 
 Vue.use(VueRouter)
@@ -28,8 +28,8 @@ const routes = [
   },
   {
     path: '/:shortCode/listy-zadan',
-    name: 'UserLists',
-    component: UserLists
+    name: 'UserListsView',
+    component: UserListsView
   },
   {
     path: '/:shortCode/wyniki',

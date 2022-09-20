@@ -16,12 +16,12 @@
       </div>
 
       <div class="buttons row justify-content-center gy-2">
-        <div class="col-12 col-md-6 col-lg-3">
+        <div class="col-12 col-md-6 col-lg-4">
           <button class="buttons__button btn btn-primary w-100" @click="startAgain">
             Rozwiąż jeszcze raz
           </button>
         </div>
-        <div class="col-12 col-md-6 col-lg-3">
+        <div class="col-12 col-md-6 col-lg-4">
           <button class="buttons__button btn btn-danger w-100" @click="restartApp">
             Koniec
           </button>

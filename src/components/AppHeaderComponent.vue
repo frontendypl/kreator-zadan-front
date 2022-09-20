@@ -4,13 +4,16 @@
       <div class="logo font-element" v-if="screenWidth>600 || !list._id">
         <a class="logo__link link-light text-decoration-none" href="https://ucze.net">ucze.net</a>
       </div>
-      <div v-if="list._id"
+      <div v-if="list._id && screenWidth>600"
       >
-        {{list.name}} - <span class="p-1 fw-bold">{{shortCode}}</span>
+        {{list.name}} <span class="p-1 fw-bold"></span>
       </div>
       <div>
         <div class="d-flex align-items-center" v-if="list._id">
-          <span class="me-4" v-if="player._id">{{player.name}}</span> <button class="btn btn-outline-danger ms-2" @click="restartApp" v-if="list._id">Zamknij</button>
+          <span class="me-4" v-if="player._id && screenWidth>600">
+            {{player.name}}
+          </span>
+          <button class="btn btn-outline-danger ms-2" @click="restartApp" v-if="list._id">Zamknij</button>
         </div>
       </div>
     </div>
