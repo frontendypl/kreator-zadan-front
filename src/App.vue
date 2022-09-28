@@ -11,6 +11,8 @@
 
     <router-view />
 
+    <AppFooterComponent />
+
 <!--    <PWAPrompt />-->
 
   </div>
@@ -21,10 +23,12 @@ import {mapState, mapGetters, mapActions} from "vuex"
 import AppLoaderComponent from "@/components/AppLoaderComponent";
 import AppHeaderComponent from "@/components/AppHeaderComponent";
 import PWAPrompt from "@/components/PWAPrompt";
+import AppFooterComponent from "@/components/AppFooterComponent";
 // import axios from "axios";
 
 export default {
   components: {
+    AppFooterComponent,
     // PWAPrompt,
     AppLoaderComponent,
     AppHeaderComponent

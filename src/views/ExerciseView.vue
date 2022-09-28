@@ -42,7 +42,7 @@
            :class="[`font-${exercise.content.answersFont}`]"
       >
         <div class="col-auto">
-          <button class="answer-button btn btn-primary mb-1 w-100"
+          <button class="answer-button btn btn-primary mb-3 w-100"
                   :class="{
                     'btn-danger': wrongAnswer && (option._id === userAnswerOption._id),
                     'btn-success': !wrongAnswer && (option._id === userAnswerOption._id)
@@ -95,6 +95,9 @@ export default {
 
   font-size: 10px;
   @media (min-width: 450px) {
+    font-size: 12px;
+  }
+  @media (min-width: 1367px) {
     font-size: 16px;
   }
 
@@ -109,6 +112,11 @@ export default {
     .image-container__img {
       max-height: 50vh;
       //width: auto;
+
+      //transition: all 0.25s;
+      //&:hover {
+      //  transform: scale(1.2);
+      //}
     }
   }
 
