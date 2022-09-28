@@ -30,6 +30,15 @@
             src: local('element'), url('./fonts/element.otf') format('opentype');
         }
     </style>
+
+    <script>
+        var ishttp = window.location.origin === "http://pytania.ucze.net"
+        if(ishttp){
+            var href = location.href
+            href = href.replace('http','https')
+            location.replace(href)
+        }
+    </script>
 </head>
   <body>
     <noscript>
