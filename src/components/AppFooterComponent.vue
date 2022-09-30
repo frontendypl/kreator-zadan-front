@@ -1,7 +1,13 @@
 <template>
-  <nav class=" c-AppFooterComponent navbar bg-dark text-light">
-    <div class="container d-flex justify-content-center">
-      <a class="logo__link link-light text-decoration-none font-element" href="https://ucze.net">ucze.net</a>
+  <nav class="c-AppFooterComponent navbar bg-dark text-light">
+    <div class="container d-flex flex-column justify-content-center">
+      <a class="link link-light text-decoration-none font-element fs-2" href="https://ucze.net">ucze.net</a>
+
+      <a class="link-freepik text-white text-decoration-none"
+         href="https://www.freepik.com/free-vector/watercolor-back-school-background-with-white-space_9001487.htm#query=watercolor-back-school-background&position=0&from_view=search&track=sph"
+      >
+        Image by pikisuperstar on Freepik
+      </a>
     </div>
   </nav>
 </template>
@@ -9,46 +15,14 @@
 <script>
 export default {
   name: 'AppFooterComponent',
-  props: {
-    shortCode: {
-      type: String,
-    },
-    list: {
-      type: Object,
-    },
-    player: {
-      type: Object
-    },
-    clearPlayerSession: {
-      type: Function
-    },
-    setAppLoader: {
-      type: Function
-    }
-  },
-  computed: {
-    screenWidth(){
-      return window.outerWidth
-    }
-  },
-  methods: {
-    restartApp(){
-      this.setAppLoader(true)
-      this.clearPlayerSession()
-      this.$router.push({name: 'StartCodeView'})
-      window.location.reload()
-    }
-  }
 }
 </script>
 
 <style lang="scss" scoped>
-  .c-FooterComponent{
+  .c-AppFooterComponent{
 
-    .logo{
-      &__link {
-        font-size: 2em;
-      }
+    .link-freepik{
+      font-size: 0.8em;
     }
   }
 </style>
