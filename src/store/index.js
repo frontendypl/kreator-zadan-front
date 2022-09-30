@@ -149,6 +149,7 @@ export default new Vuex.Store({
     async getExercise({commit, state, getters, dispatch}){
       dispatch('setAppLoader', true)
       commit('setUserAnswerOption', {})
+      // commit('getExercise', {}) // To fix latency of new image
       try{
         const response = await axios.get(`${getters.apiUrl}/lists/${state.list._id}/${state.player._id}/exercises`)
 

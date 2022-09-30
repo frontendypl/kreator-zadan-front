@@ -27,8 +27,10 @@
       >
         <div class="col">
           <p class="text-content"
-              :class="{'text-content--long': exercise.content.content.length > 100,
-              'text-content--very-long': exercise.content.content.length > 500
+              :class="{
+              'text-content--long': exercise.content.content.length > 100,
+              'text-content--very-long': exercise.content.content.length > 500,
+              'text-content--no-image': !exercise.imageObject
           }"
           >{{ exercise.content.content }}</p>
         </div>
@@ -101,16 +103,29 @@ export default {
     font-size: 16px;
   }
 
-  padding: 2em;
+  padding: 1em;
+
+  @media screen and (min-width: 1600px) {
+    padding: 2em;
+  }
 
   &--no-image{
 
   }
 
   .image-container {
-    margin-bottom:2em;
+    margin-bottom:1em;
+
+    @media screen and (min-width: 1600px) {
+      margin-bottom:2em;
+    }
+
     .image-container__img {
-      max-height: 50vh;
+      max-height: 45vh;
+
+      @media screen and (min-width: 1600px) {
+        max-height: 50vh;
+      }
       //width: auto;
 
       //transition: all 0.25s;
@@ -121,13 +136,22 @@ export default {
   }
 
   .content-container{
-    margin-bottom: 2em;
+    margin-bottom: 1em;
+
+    @media screen and (min-width: 1600px) {
+      margin-bottom:2em;
+    }
 
     .text-content {
       margin-bottom: 0;
 
       font-size: 3em;
+
       font-weight: 600;
+
+      &--no-image{
+        font-size: 4.5em;
+      }
 
       &--long{
         //font-size: 2rem;
@@ -136,6 +160,7 @@ export default {
       &--very-long{
         //font-size: 1.5rem;
       }
+
     }
   }
 
@@ -147,7 +172,7 @@ export default {
     }
 
     .answer-button {
-      font-size: 3em;
+      font-size: 2em;
       font-weight: 600;
     }
 
