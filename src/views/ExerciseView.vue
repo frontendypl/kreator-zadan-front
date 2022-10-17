@@ -44,7 +44,7 @@
            :class="[`font-${exercise.content.answersFont}`]"
       >
         <div class="col-auto">
-          <button class="answer-button btn btn-primary mb-3 w-100"
+          <button class="answer-button btn btn-primary white mb-3 w-100"
                   :class="{
                     'btn-danger': wrongAnswer && (option._id === userAnswerOption._id),
                     'btn-success': !wrongAnswer && (option._id === userAnswerOption._id)
@@ -92,7 +92,12 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
+
+body{
+  background-image: none;
+}
+
 .v-ExerciseView{
 
   font-size: 10px;
@@ -174,6 +179,19 @@ export default {
     .answer-button {
       font-size: 2em;
       font-weight: 600;
+
+      border: 2px solid #0b5ed7;
+      background-color: #fff;
+      color: black;
+
+      &.btn-danger{
+        border-color: red;
+      }
+      &.btn-success{
+        border-color: green;
+        color: white;
+        background-color: green;
+      }
     }
 
   }
