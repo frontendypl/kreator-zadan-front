@@ -5,20 +5,33 @@
 
     <div class="container text-center" v-if="exercise.content">
       <div class="image-container row" v-if="exercise.imageObject">
-        <div class="col" >
+        <div class="col-auto position-relative justify-content-center mx-auto" >
 
           <img
               :src="exercise.imageObject.url"
               class="image-container__img"
+              :class="{'image-container__img--magnified':magnification}"
               alt=""
               v-if="exercise.imageObject.srcType === 'url' "
           >
           <img
               :src="`data:${exercise.imageObject.mimetype};base64,${exercise.imageObject.src}`"
               class="image-container__img"
+              :class="{'image-container__img--magnified':magnification}"
               :alt="exercise.imageObject.originalname"
                v-if="exercise.imageObject.srcType === 'buffer' "
           >
+
+          <i class="image-container__icon bi bi-arrows-fullscreen"
+             v-if="!magnification & imageRatio>0.44"
+             @click="magnification = true"
+          ></i>
+          <i class="image-container__icon bi bi-box-arrow-in-down-left"
+             v-if="magnification"
+             @click="magnification = false"
+          >
+          </i>
+
         </div>
       </div>
       <div class="content-container row"
@@ -70,11 +83,17 @@ export default {
   name: 'ExerciseView',
   data(){
     return {
-
+      magnification: false,
+      imageRatio: 1
     }
   },
   computed: {
-    ...mapState(['answerLoader','exercise','wrongAnswer','player','userAnswerOption'])
+    ...mapState(['answerLoader','exercise','wrongAnswer','player','userAnswerOption']),
+    // imageRatio(){
+    //   const image = document.querySelector('.image-container__img')
+    //
+    //   return image? image.height/window.outerHeight: 0.35
+    // }
   },
   methods: {
     ...mapActions(['postAnswer','setAnswerLoader']),
@@ -82,13 +101,31 @@ export default {
       this.postAnswer({
         answerOption
       })
+    },
+    countImageRatio(){
+        const image = document.querySelector('.image-container__img')
+        this.imageRatio=  image? image.height/window.outerHeight: 1
+    }
+  },
+  watch: {
+    exercise: {
+      handler(){
+        this.magnification = false;
+        setTimeout(()=>{
+          this.countImageRatio()
+        },100)
+      },
+      deep: true
     }
   },
   created() {
 
   },
   mounted() {
-  }
+    window.addEventListener('resize',()=>{
+      this.countImageRatio()
+    })
+  },
 }
 </script>
 
@@ -119,17 +156,50 @@ body{
   }
 
   .image-container {
-    margin-bottom:1em;
+    margin-bottom:2.5em;
+    position: relative;
 
     @media screen and (min-width: 1600px) {
       margin-bottom:2em;
     }
 
+    &__icon{
+      font-size: 1.5em;
+      position: absolute;
+      right: 0;
+      bottom: 0;
+      transform: translate(-25%, 50%);
+      background-color: rgba(255,255,255,0.8);
+      color: black;
+      border: 1px solid black;
+      border-radius: 5px;
+      padding: 5px;
+      transition: all 0.25s;
+      cursor: pointer;
+
+      &:hover {
+        transform: scale(1.2) translate(-25%, 50%);
+      }
+
+      @media screen and (min-width: 450px){
+        transform: translate(25%, 50%);
+        &:hover {
+          transform: scale(1.2) translate(25%, 50%);
+        }
+      }
+
+    }
+
     .image-container__img {
       max-height: 45vh;
+      transition: all 0.1s;
 
       @media screen and (min-width: 1600px) {
         max-height: 50vh;
+      }
+
+      &--magnified {
+        max-height: 100%;
       }
       //width: auto;
 

@@ -3,10 +3,10 @@ import VueRouter from 'vue-router'
 
 import EnterView from "@/views/EnterView";
 import EnterNameView from "@/views/EnterNameView";
-// import ExerciseView from "@/views/ExerciseView";
+import ExerciseView from "@/views/ExerciseView";
 import ResultView from "@/views/ResultView";
 import UserListsView from "@/views/UserListsView";
-const ExerciseView = () => import('@/views/ExerciseView')
+
 
 Vue.use(VueRouter)
 
