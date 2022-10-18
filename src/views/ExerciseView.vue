@@ -23,7 +23,7 @@
           >
 
           <i class="image-container__icon bi bi-arrows-fullscreen"
-             v-if="!magnification & imageRatio>0.44"
+             v-if="!magnification"
              @click="magnification = true"
           ></i>
           <i class="image-container__icon bi bi-box-arrow-in-down-left"
@@ -84,16 +84,11 @@ export default {
   data(){
     return {
       magnification: false,
-      imageRatio: 1
+      // imageRatio: 1
     }
   },
   computed: {
     ...mapState(['answerLoader','exercise','wrongAnswer','player','userAnswerOption']),
-    // imageRatio(){
-    //   const image = document.querySelector('.image-container__img')
-    //
-    //   return image? image.height/window.outerHeight: 0.35
-    // }
   },
   methods: {
     ...mapActions(['postAnswer','setAnswerLoader']),
@@ -102,18 +97,18 @@ export default {
         answerOption
       })
     },
-    countImageRatio(){
-        const image = document.querySelector('.image-container__img')
-        this.imageRatio=  image? image.height/window.outerHeight: 1
-    }
+    // countImageRatio(){
+    //     const image = document.querySelector('.image-container__img')
+    //     this.imageRatio=  image? image.wid/window.outerHeight: 1
+    // }
   },
   watch: {
     exercise: {
       handler(){
         this.magnification = false;
-        setTimeout(()=>{
-          this.countImageRatio()
-        },100)
+        // setTimeout(()=>{
+        //   this.countImageRatio()
+        // },100)
       },
       deep: true
     }
@@ -123,7 +118,7 @@ export default {
   },
   mounted() {
     window.addEventListener('resize',()=>{
-      this.countImageRatio()
+      // this.countImageRatio()
     })
   },
 }
