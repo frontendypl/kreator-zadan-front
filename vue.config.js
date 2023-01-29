@@ -12,5 +12,17 @@ module.exports = defineConfig({
     name: "Pytania",
     themeColor: "#ffd100",
     GenerateSW: true
+  },
+
+  chainWebpack: config => {
+    config.module
+        .rule('vue')
+        .use('vue-loader')
+        .tap(options => {
+          options.compiler = require('vue-template-babel-compiler')
+          return options
+        })
   }
+
+
 })

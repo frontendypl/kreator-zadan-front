@@ -34,6 +34,18 @@
 
         </div>
       </div>
+
+      <div  v-if="isYoutubeVideoAttached">
+                        <iframe
+                            :src="`https://www.youtube.com/embed/${exercise.content.youtubeVideo.ytId}?start=${exercise.content.youtubeVideo.startTime}&end=${exercise.content.youtubeVideo.endTime}&autoplay=1`"
+                            frameborder="0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                            allowfullscreen
+                        >
+
+                        </iframe>
+      </div>
+
       <div class="content-container row"
            :class="[`font-${exercise.content.contentFont}`]"
            v-if="exercise.content.content"
@@ -77,6 +89,7 @@
 </template>
 
 <script>
+import fitvids from "fitvids"
 import {mapState, mapActions} from "vuex";
 
 export default {
@@ -89,6 +102,9 @@ export default {
   },
   computed: {
     ...mapState(['answerLoader','exercise','wrongAnswer','player','userAnswerOption']),
+    isYoutubeVideoAttached(){
+      return !!this.exercise.content?.youtubeVideo?.ytId
+    }
   },
   methods: {
     ...mapActions(['postAnswer','setAnswerLoader']),
@@ -111,6 +127,14 @@ export default {
         // },100)
       },
       deep: true
+    },
+    isYoutubeVideoAttached(newVal, oldVal){
+
+      if(newVal){
+        setTimeout(()=>{
+          fitvids()
+        },1)
+      }
     }
   },
   created() {
@@ -120,6 +144,7 @@ export default {
     window.addEventListener('resize',()=>{
       // this.countImageRatio()
     })
+    fitvids()
   },
 }
 </script>
