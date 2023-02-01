@@ -45,7 +45,13 @@ export default {
     }
   },
   methods: {
-    ...mapActions(['setShortCode','getList', 'getExercise','returnPlayerSession', 'clearPlayerSession','setAppLoader'])
+    ...mapActions(['setShortCode','getList', 'getExercise','returnPlayerSession', 'clearPlayerSession','setAppLoader']),
+    initYoutube(){
+      var tag = document.createElement('script');
+      tag.src = "https://www.youtube.com/iframe_api";
+      var firstScriptTag = document.getElementsByTagName('script')[0];
+      firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+    }
   },
   watch: {
     urlShortCode: {
@@ -107,6 +113,8 @@ export default {
   },
   mounted() {
     console.log(this.$route)
+
+    this.initYoutube()
   },
 }
 </script>

@@ -35,16 +35,22 @@
         </div>
       </div>
 
-      <div  v-if="isYoutubeVideoAttached">
-                        <iframe
-                            :src="`https://www.youtube.com/embed/${exercise.content.youtubeVideo.ytId}?start=${exercise.content.youtubeVideo.startTime}&end=${exercise.content.youtubeVideo.endTime}&autoplay=1`"
-                            frameborder="0"
-                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                            allowfullscreen
-                        >
+      <YoutubeComponent
+          :video="exercise.content.youtubeVideo"
+          v-if="isYoutubeVideoAttached"
+          :key="exercise.content.youtubeVideo.ytId"
+      />
 
-                        </iframe>
-      </div>
+<!--      <div  v-if="isYoutubeVideoAttached">-->
+<!--                        <iframe-->
+<!--                            :src="`https://www.youtube.com/embed/${exercise.content.youtubeVideo.ytId}?start=${exercise.content.youtubeVideo.startTime}&end=${exercise.content.youtubeVideo.endTime}&autoplay=1`"-->
+<!--                            frameborder="0"-->
+<!--                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"-->
+<!--                            allowfullscreen-->
+<!--                        >-->
+
+<!--                        </iframe>-->
+<!--      </div>-->
 
       <div class="content-container row"
            :class="[`font-${exercise.content.contentFont}`]"
@@ -91,9 +97,11 @@
 <script>
 import fitvids from "fitvids"
 import {mapState, mapActions} from "vuex";
+import YoutubeComponent from "@/components/YoutubeComponent";
 
 export default {
   name: 'ExerciseView',
+  components: {YoutubeComponent},
   data(){
     return {
       magnification: false,
@@ -259,11 +267,16 @@ body{
     }
   }
 
+  .c-YoutubeComponent {
+    margin: 1em auto;
+  }
+
   .answers-container{
+
+    margin: 1em auto;
 
     @media (min-width: 1000px) {
       max-width: 600px;
-      margin: 0 auto;
     }
 
     .answer-button {
